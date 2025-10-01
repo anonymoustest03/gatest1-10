@@ -1,3 +1,3 @@
 #!/bin/sh
-echo "Calculating 6 times 5..."
-expr 6 \* 5
+echo "Calculating 6 times 6..."
+expr 6 \* 6
