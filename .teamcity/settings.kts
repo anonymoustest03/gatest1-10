@@ -16,15 +16,19 @@ project {
                 name = "Print a Message"
                 scriptContent = "echo 'Hello from the pipeline! A change was detected.'"
             }
-            // Step 2: Sleep for 10 seconds
+            
+            // Step 2: CHANGE THIS STEP
+            // Use 'timeout' for Windows instead of 'sleep'
             script {
                 name = "Wait for 10 Seconds"
-                scriptContent = "sleep 10"
+                scriptContent = "timeout /t 10 /nobreak"
             }
-            // Step 3: Execute the .sh file
+            
+            // Step 3: CHANGE THIS STEP
+            // Call the 'bash' interpreter to run the .sh file
             script {
                 name = "Run Calculation Script"
-                scriptContent = "./calculate.sh"
+                scriptContent = "bash calculate.sh"
             }
         }
 
