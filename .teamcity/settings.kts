@@ -42,9 +42,9 @@ object Build : BuildType({
     steps {
         script {
                 id = "sleeper"
-                name = "Wait for 10 Seconds"
+                name = "Wait for 15 Seconds"
                 scriptContent = """
-                   sleep 10
+                   sleep 15
                 """.trimIndent()
             }
         
