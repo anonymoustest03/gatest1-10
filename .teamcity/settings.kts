@@ -41,6 +41,14 @@ object Build : BuildType({
 
     steps {
         script {
+                id = "sleeper"
+                name = "Wait for 10 Seconds"
+                scriptContent = """
+                   sleep 10
+                """.trimIndent()
+            }
+        
+        script {
             id = "simpleRunner"
             scriptContent = """
                 chmod +x calculate.sh
