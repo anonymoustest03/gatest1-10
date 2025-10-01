@@ -2,52 +2,49 @@ import jetbrains.buildServer.configs.kotlin.*
 import jetbrains.buildServer.configs.kotlin.buildFeatures.pullRequests
 import jetbrains.buildServer.configs.kotlin.triggers.vcs
 
-/* This is the root project definition */
+/* * This is the root project definition.
+ * The 'version' is the crucial part that was missing.
+ */
+version = "2022.10" // Or a newer version like "2023.11"
+
 project {
-
-    /* This defines your build pipeline (also called a "Build Configuration") */
     buildType {
-        name = "My Workflow Pipeline" // The name of the pipeline in the TeamCity UI
+        name = "My Workflow Pipeline"
 
-        /* This section defines the build steps */
         steps {
-            // Step 1: Print something
             script {
                 name = "Print a Message"
+                // Using 'scriptContent' is fine for one-liners
                 scriptContent = "echo 'Hello from the pipeline! A change was detected.'"
             }
-            
-            // Step 2: CHANGE THIS STEP
-            // Use 'timeout' for Windows instead of 'sleep'
+
             script {
                 name = "Wait for 10 Seconds"
+                // Use the Windows-compatible timeout command
                 scriptContent = "timeout /t 10 /nobreak"
             }
-            
-            // Step 3: CHANGE THIS STEP
-            // Call the 'bash' interpreter to run the .sh file
+
             script {
                 name = "Run Calculation Script"
+                // Use the bash command to run the shell script on Windows
                 scriptContent = "bash calculate.sh"
             }
         }
 
-        /* This section defines the triggers */
         triggers {
-            // This trigger runs the pipeline on every push to any branch
             vcs {
-                branchFilter = "+:*" // The '+' means include, and '*' is a wildcard for all branches
+                branchFilter = "+:*"
             }
         }
 
-        /* This feature enables builds for pull requests */
+        /* * This section had a minor syntax error.
+         * You need to specify the connection to GitHub that you set up in the UI.
+         */
         features {
             pullRequests {
-                provider = github { // Use 'gitlab' or 'bitbucket' if needed
-                    authType = "token"
-                    // Note: You'll need to create a connection in the TeamCity UI
-                    // and reference its ID here if your repo is private.
-                    // For public repos, this often works out of the box.
+                provider = github {
+                    connectionId = "PROJECT_EXT_ID" // <-- IMPORTANT: Change this!
+                    authType = vcsRoot()
                 }
             }
         }
