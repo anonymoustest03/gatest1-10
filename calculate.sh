@@ -1,3 +1,3 @@
 #!/bin/sh
-echo "Calculating 7 times 7..."
-expr 7 \* 7
+echo "Calculating 8 times 8..."
+expr 8 \* 8
