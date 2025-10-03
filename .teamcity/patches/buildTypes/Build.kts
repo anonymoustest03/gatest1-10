@@ -29,9 +29,9 @@ changeBuildType(RelativeId("Build")) {
     }
     steps {
         update<ScriptBuildStep>(0) {
-            name = "Wait for 180 Seconds"
+            name = "Wait for 600 Seconds"
             clearConditions()
-            scriptContent = "sleep 180"
+            scriptContent = "sleep 600"
             param("teamcity.kubernetes.executor.pull.policy", "")
         }
     }
