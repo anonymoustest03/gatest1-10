@@ -3,6 +3,8 @@ package patches.buildTypes
 import jetbrains.buildServer.configs.kotlin.*
 import jetbrains.buildServer.configs.kotlin.buildFeatures.PullRequests
 import jetbrains.buildServer.configs.kotlin.buildFeatures.pullRequests
+import jetbrains.buildServer.configs.kotlin.buildSteps.ScriptBuildStep
+import jetbrains.buildServer.configs.kotlin.buildSteps.script
 import jetbrains.buildServer.configs.kotlin.ui.*
 
 /*
@@ -11,6 +13,29 @@ To apply the patch, change the buildType with id = 'Build'
 accordingly, and delete the patch script.
 */
 changeBuildType(RelativeId("Build")) {
+    expectSteps {
+        script {
+            name = "Wait for 15 Seconds"
+            id = "sleeper"
+            scriptContent = "sleep 15"
+        }
+        script {
+            id = "simpleRunner"
+            scriptContent = """
+                chmod +x calculate.sh
+                ./calculate.sh
+            """.trimIndent()
+        }
+    }
+    steps {
+        update<ScriptBuildStep>(0) {
+            name = "Wait for 30 Seconds"
+            clearConditions()
+            scriptContent = "sleep 30"
+            param("teamcity.kubernetes.executor.pull.policy", "")
+        }
+    }
+
     features {
         add {
             pullRequests {
