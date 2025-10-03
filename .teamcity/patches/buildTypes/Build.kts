@@ -15,9 +15,9 @@ accordingly, and delete the patch script.
 changeBuildType(RelativeId("Build")) {
     expectSteps {
         script {
-            name = "Wait for 15 Seconds"
+            name = "Wait for 11 Seconds"
             id = "sleeper"
-            scriptContent = "sleep 15"
+            scriptContent = "sleep 11"
         }
         script {
             id = "simpleRunner"
