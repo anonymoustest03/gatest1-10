@@ -39,12 +39,20 @@ object Build : BuildType({
         root(DslContext.settingsRoot)
     }
 
+    requirements {
+        // This line selects the operating system.
+        equals("teamcity.agent.os", "Linux")
+
+        // This line selects the VM size (for TeamCity Cloud).
+        equals("teamcity.agent.name", "linux-medium")
+    }
+
     steps {
         script {
                 id = "sleeper"
-                name = "Wait for 15 Seconds"
+                name = "Wait for 10 Seconds"
                 scriptContent = """
-                   sleep 15
+                   sleep 10
                 """.trimIndent()
             }
         
