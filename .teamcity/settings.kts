@@ -39,6 +39,14 @@ object Build : BuildType({
         root(DslContext.settingsRoot)
     }
 
+    requirements {
+        // This line selects the operating system.
+        equals("teamcity.agent.os", "Linux")
+
+        // This line selects the VM size (for TeamCity Cloud).
+        equals("teamcity.agent.name", "linux-large")
+    }
+
     steps {
         script {
                 id = "sleeper"
