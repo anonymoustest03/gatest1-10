@@ -3,7 +3,6 @@ package patches.buildTypes
 import jetbrains.buildServer.configs.kotlin.*
 import jetbrains.buildServer.configs.kotlin.buildFeatures.PullRequests
 import jetbrains.buildServer.configs.kotlin.buildFeatures.pullRequests
-import jetbrains.buildServer.configs.kotlin.buildSteps.script
 import jetbrains.buildServer.configs.kotlin.ui.*
 
 /*
@@ -12,29 +11,6 @@ To apply the patch, change the buildType with id = 'Build'
 accordingly, and delete the patch script.
 */
 changeBuildType(RelativeId("Build")) {
-    expectSteps {
-        script {
-            name = "Wait for 15 Seconds"
-            id = "sleeper"
-            scriptContent = "sleep 15"
-        }
-        script {
-            id = "simpleRunner"
-            scriptContent = """
-                chmod +x calculate.sh
-                ./calculate.sh
-            """.trimIndent()
-        }
-    }
-    steps {
-        insert(2) {
-            script {
-                id = "simpleRunner_1"
-                scriptContent = "./calculate.sh"
-            }
-        }
-    }
-
     features {
         add {
             pullRequests {
