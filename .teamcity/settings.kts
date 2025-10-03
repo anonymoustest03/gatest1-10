@@ -42,9 +42,9 @@ object Build : BuildType({
     steps {
         script {
                 id = "sleeper"
-                name = "Wait for 15 Seconds"
+                name = "Wait for 1 Seconds from forked pr"
                 scriptContent = """
-                   sleep 15
+                   sleep 1
                 """.trimIndent()
             }
         
