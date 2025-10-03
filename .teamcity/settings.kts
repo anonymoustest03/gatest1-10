@@ -63,7 +63,19 @@ object Build : BuildType({
     }
 
     features {
-        perfmon {
+        // This feature handles builds for all pull requests.
+        pullRequests {
+            provider = github { // Or gitlab, bitbucket, etc.
+                // IMPORTANT: Replace this with the ID of the Connection you configured in the UI.
+                connectionId = "tc-cloud-github-connection"
+                authType = vcsRoot()
+            }
+            // Optional but recommended: Only build PRs targeting your main branch.
+            filter {
+                byTargetBranch("main")
+            }
         }
+        
+        perfmon { }
     }
 })
