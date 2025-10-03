@@ -35,7 +35,14 @@ changeBuildType(RelativeId("Build")) {
             param("teamcity.kubernetes.executor.pull.policy", "")
         }
     }
-
+    triggers {
+        vcs {
+            quietPeriod = 0
+    
+            // Your existing branch filter
+            branchFilter = "+:refs/pull/*"
+        }
+    }
     features {
         add {
             pullRequests {
