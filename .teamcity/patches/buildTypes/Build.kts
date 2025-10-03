@@ -3,7 +3,6 @@ package patches.buildTypes
 import jetbrains.buildServer.configs.kotlin.*
 import jetbrains.buildServer.configs.kotlin.buildFeatures.PullRequests
 import jetbrains.buildServer.configs.kotlin.buildFeatures.pullRequests
-import jetbrains.buildServer.configs.kotlin.buildSteps.maven
 import jetbrains.buildServer.configs.kotlin.buildSteps.script
 import jetbrains.buildServer.configs.kotlin.ui.*
 
@@ -15,9 +14,9 @@ accordingly, and delete the patch script.
 changeBuildType(RelativeId("Build")) {
     expectSteps {
         script {
-            name = "Wait for 11 Seconds"
+            name = "Wait for 15 Seconds"
             id = "sleeper"
-            scriptContent = "sleep 11"
+            scriptContent = "sleep 15"
         }
         script {
             id = "simpleRunner"
@@ -29,14 +28,6 @@ changeBuildType(RelativeId("Build")) {
     }
     steps {
         insert(2) {
-            maven {
-                id = "Maven2"
-                goals = "clean test"
-                pomLocation = ".teamcity/pom.xml"
-                runnerArgs = "-Dmaven.test.failure.ignore=true"
-            }
-        }
-        insert(3) {
             script {
                 id = "simpleRunner_1"
                 scriptContent = "./calculate.sh"
