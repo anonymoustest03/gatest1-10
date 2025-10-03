@@ -1,3 +1,3 @@
 #!/bin/sh
-echo "Calculating 9 times 9 from 3rd party 1st pr..."
-expr 9 \* 9
+echo "Calculating 9 times 10 from forked pr..."
+expr 9 \* 10
