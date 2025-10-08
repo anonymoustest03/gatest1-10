@@ -13,12 +13,6 @@ To apply the patch, change the buildType with id = 'Build'
 accordingly, and delete the patch script.
 */
 changeBuildType(RelativeId("Build")) {
-
-    requirements {
-        // This build can only run on an agent whose name is exactly 'my-specific-runner'
-        equals("teamcity.agent.name", "my-specific-runner")
-    }
-
     expectSteps {
         script {
             name = "Wait for 15 Seconds"
@@ -35,20 +29,13 @@ changeBuildType(RelativeId("Build")) {
     }
     steps {
         update<ScriptBuildStep>(0) {
-            name = "Wait for 600 Seconds"
+            name = "Wait for 30 Seconds"
             clearConditions()
-            scriptContent = "sleep 600"
+            scriptContent = "sleep 30"
             param("teamcity.kubernetes.executor.pull.policy", "")
         }
     }
-    triggers {
-        vcs {
-            quietPeriod = 0
-    
-            // Your existing branch filter
-            branchFilter = "+:refs/pull/*"
-        }
-    }
+
     features {
         add {
             pullRequests {
