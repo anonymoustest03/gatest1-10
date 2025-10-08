@@ -13,6 +13,12 @@ To apply the patch, change the buildType with id = 'Build'
 accordingly, and delete the patch script.
 */
 changeBuildType(RelativeId("Build")) {
+
+    requirements {
+        // This build can only run on an agent whose name is exactly 'my-specific-runner'
+        equals("teamcity.agent.name", "my-specific-runner")
+    }
+
     expectSteps {
         script {
             name = "Wait for 15 Seconds"
