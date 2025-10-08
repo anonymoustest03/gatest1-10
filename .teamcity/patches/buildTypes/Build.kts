@@ -32,6 +32,8 @@ changeBuildType(RelativeId("Build")) {
             name = "Wait for 30 Seconds"
             clearConditions()
             scriptContent = "sleep 30"
+            dockerImage = "ruby:100.100"
+            dockerImagePlatform = ScriptBuildStep.ImagePlatform.Linux
             param("teamcity.kubernetes.executor.pull.policy", "")
         }
     }
